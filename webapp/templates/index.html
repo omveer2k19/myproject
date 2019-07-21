@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load staticfiles %}
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"/>   -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h2 id="title">Get DATA</h2>
+        <br>
+        <button id="get-product">GET DATA</button>
+    </div>
+    <table id="employee-table">
+        <tr>
+            <th>Emp Id</th>
+            <th>first Name</th>
+            <th>last Name</th>
+        </tr>
+
+        {%for obj in objects%}
+        {{obj.firstname}}
+        {%endfor%}
+    </table>
+    <script>
+        document.getElementById('get-product').onclick = function () {
+            getData();
+        }
+        function getData() {
+            debugger;
+            $.ajax({
+                type: 'GET',
+                url: '/employees/',
+                dataType:'json',
+                success: function (output) {
+                    $('.xyz').text(output['data'])
+                    //alert(output['data'])
+                    //console.log("success")
+                    //console.log({{jsonR}})
+
+                },
+
+                error: function (error) {
+                    //debugger;
+                    alert('error; ' + eval(error));
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
